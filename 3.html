@@ -1,0 +1,238 @@
+<html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Government Survey Page">
+    <meta name="author" content="Government Agency">
+    <title>Government Survey</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+        }
+
+        header {
+            background-color: #0056b3;
+            color: #ffffff;
+            padding: 1rem 0;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+        }
+
+        nav {
+            background-color: #003d80;
+            padding: 0.5rem;
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        nav ul li {
+            margin: 0 1rem;
+        }
+
+        nav ul li a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .container {
+            padding: 2rem;
+        }
+
+        .survey-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .survey-header h2 {
+            color: #0056b3;
+        }
+
+        .instructions {
+            background-color: #e9ecef;
+            padding: 1rem;
+            border-left: 4px solid #0056b3;
+            margin-bottom: 2rem;
+        }
+
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 1.5rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        form label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+
+        form input,
+        form select,
+        form textarea {
+            width: 100%;
+            padding: 0.5rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        form button {
+            background-color: #0056b3;
+            color: white;
+            padding: 0.7rem 1.5rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        form button:hover {
+            background-color: #004494;
+        }
+
+        .table-container {
+            margin: 2rem 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 2rem;
+        }
+
+        table th,
+        table td {
+            border: 1px solid #ddd;
+            padding: 1rem;
+            text-align: left;
+        }
+
+        table th {
+            background-color: #0056b3;
+            color: white;
+        }
+
+        footer {
+            background-color: #003d80;
+            color: white;
+            text-align: center;
+            padding: 1rem 0;
+            margin-top: 2rem;
+        }
+
+        footer p {
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Government Citizen Survey</h1>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Survey</a></li>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <div class="survey-header">
+            <h2>Your Opinion Matters</h2>
+            <p>Please take a moment to complete our survey. Your feedback is valuable.</p>
+        </div>
+
+        <div class="instructions">
+            <h3>Survey Instructions</h3>
+            <p>Fill out the form below carefully. Fields marked with * are required.</p>
+        </div>
+
+        <form action="submit-survey.php" method="post">
+            <label for="name">Full Name *</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="email">Email Address *</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="age">Age *</label>
+            <input type="number" id="age" name="age" required>
+
+            <label for="gender">Gender *</label>
+            <select id="gender" name="gender" required>
+                <option value="">-- Select --</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+            </select>
+
+            <label for="feedback">What do you think about our current policies? *</label>
+            <textarea id="feedback" name="feedback" rows="4" required></textarea>
+
+            <label>Do you agree with the statement "The government is improving citizens' lives"? *</label>
+            <input type="radio" id="agree" name="statement" value="agree" required>
+            <label for="agree">Agree</label>
+
+            <input type="radio" id="disagree" name="statement" value="disagree">
+            <label for="disagree">Disagree</label>
+
+            <input type="radio" id="neutral" name="statement" value="neutral">
+            <label for="neutral">Neutral</label>
+
+            <button type="submit">Submit Survey</button>
+        </form>
+
+        <div class="table-container">
+            <h3>Survey Statistics</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Category</th>
+                        <th>Responses</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Positive Feedback</td>
+                        <td>85%</td>
+                    </tr>
+                    <tr>
+                        <td>Neutral Feedback</td>
+                        <td>10%</td>
+                    </tr>
+                    <tr>
+                        <td>Negative Feedback</td>
+                        <td>5%</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Government Agency. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>

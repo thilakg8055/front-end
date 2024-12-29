@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Movie Booking</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="scripts.js" defer></script>
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            <img src="logo.png" alt="Movie Booking Logo">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Movies</a></li>
+                <li><a href="#">Showtimes</a></li>
+                <li><a href="#">Contact</a></li>
+                <li><a href="#" onclick="showLoginModal()">Login</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="login-modal" id="login-modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close" onclick="closeLoginModal()">&times;</span>
+            <h2>Login</h2>
+            <form id="login-form" onsubmit="handleLogin(event)">
+                <label for="username">Username:</label>
+                <input type="text" id="username" required><br>
+                <label for="password">Password:</label>
+                <input type="password" id="password" required><br>
+                <button type="submit">Login</button>
+            </form>
+        </div>
+    </section>
+
+    <section class="movie-list">
+        <h1>Available Movies</h1>
+        <div class="movie-container">
+            <!-- Movie 1 -->
+            <div class="movie-card">
+                <img src="movie1.jpg" alt="Movie 1 Poster">
+                <h3>Movie Title 1</h3>
+                <p>Genre: Action | Duration: 120 min</p>
+                <button class="book-now" onclick="selectMovie('Movie Title 1')">Book Now</button>
+            </div>
+
+            <!-- Movie 2 -->
+            <div class="movie-card">
+                <img src="movie2.jpg" alt="Movie 2 Poster">
+                <h3>Movie Title 2</h3>
+                <p>Genre: Drama | Duration: 140 min</p>
+                <button class="book-now" onclick="selectMovie('Movie Title 2')">Book Now</button>
+            </div>
+
+            <!-- Movie 3 -->
+            <div class="movie-card">
+                <img src="movie3.jpg" alt="Movie 3 Poster">
+                <h3>Movie Title 3</h3>
+                <p>Genre: Comedy | Duration: 100 min</p>
+                <button class="book-now" onclick="selectMovie('Movie Title 3')">Book Now</button>
+            </div>
+
+            <!-- Movie 4 -->
+            <div class="movie-card">
+                <img src="movie4.jpg" alt="Movie 4 Poster">
+                <h3>Movie Title 4</h3>
+                <p>Genre: Thriller | Duration: 115 min</p>
+                <button class="book-now" onclick="selectMovie('Movie Title 4')">Book Now</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="showtimes" id="showtimes-section" style="display: none;">
+        <h2>Select Showtimes</h2>
+        <div class="showtime-container">
+            <div class="showtime-card">
+                <p>Time: 10:00 AM</p>
+                <button class="select-time" onclick="selectShowtime('10:00 AM')">Select</button>
+            </div>
+            <div class="showtime-card">
+                <p>Time: 1:00 PM</p>
+                <button class="select-time" onclick="selectShowtime('1:00 PM')">Select</button>
+            </div>
+            <div class="showtime-card">
+                <p>Time: 4:00 PM</p>
+                <button class="select-time" onclick="selectShowtime('4:00 PM')">Select</button>
+            </div>
+            <div class="showtime-card">
+                <p>Time: 7:00 PM</p>
+                <button class="select-time" onclick="selectShowtime('7:00 PM')">Select</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="seat-selection" id="seat-selection-section" style="display: none;">
+        <h2>Select Seats</h2>
+        <div class="seats-container">
+            <!-- Dynamic Seat Grid -->
+            <div class="row" id="seat-grid">
+                <!-- Seats will be dynamically generated here -->
+            </div>
+        </div>
+        <button class="confirm-seats" onclick="confirmSeats()">Confirm Seats</button>
+    </section>
+
+    <section class="confirmation" id="confirmation-section" style="display: none;">
+        <h2>Booking Confirmation</h2>
+        <p id="confirmation-message"></p>
+        <button onclick="goBackToMovies()">Back to Movies</button>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Movie Booking Website. All Rights Reserved.</p>
+    </footer>
+
+</body>
+
+</html>
+
+<style>
+    /* Basic Reset */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        padding: 0;
+        margin: 0;
+    }
+
+    header {
+        background-color: #333;
+        color: #fff;
+        padding: 15px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    header .logo img {
+        height: 40px;
+    }
+
+    nav ul {
+        list-style-type: none;
+        display: flex;
+    }
+
+    nav ul li {
+        margin: 0 15px;
+    }
+
+    nav ul li a {
+        color: #fff;
+        text-decoration: none;
+    }
+
+    /* Movie Cards */
+    .movie-list {
+        padding: 20px;
+    }
+
+    .movie-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+
+    .movie-card {
+        background-color: #fff;
+        border: 1px solid #ddd;
+        width: 200px;
+        text-align: center;
+        padding: 10px;
+    }
+
+    .movie-card img {
+        width: 100%;
+        height: auto;
+    }
+
+    .book-now {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        padding: 10px;
+        cursor: pointer;
+    }
+
+    .book-now:hover {
+        background-color: #0056b3;
+    }
+
+    /* Modal */
+    .login-modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.7);
+        justify-content: center;
+        align-items: center;
+    }
+
+    .modal-content {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 5px;
+        width: 300px;
+        text-align: center;
+    }
+
+    .close {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        font-size: 20px;
+        cursor: pointer;
+    }
+
+    /* Seat Grid */
+    .seats-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .row {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+    }
+
+    .seat {
+        width: 30px;
+        height: 30px;
+        background-color: #ccc;
+        border: 1px solid #888;
+        cursor: pointer;
+    }
+
+    .seat.selected {
+        background-color: #007bff;
+        color: white;
+    }
+
+    .confirm-seats {
+        background-color: #28a745;
+        color: white;
+        padding: 10px;
+        border: none;
+        cursor: pointer;
+    }
+
+    .confirm-seats:hover {
+        background-color: #218838;
+    }
+
+    footer {
+        background-color: #333;
+        color: #fff;
+        text-align: center;
+        padding: 15px;
+        position: relative;
+        bottom: 0;
+        width: 100%;
+    }
+</style>
+
+<script>
+    let selectedMovie = '';
+    let selectedTime = '';
+    let selectedSeats = [];
+    let username = '';
+
+    function selectMovie(movie) {
+        selectedMovie = movie;
+        document.getElementById('showtimes-section').style.display = 'block';
+        document.querySelector('.movie-list').style.display = 'none';
+    }
+
+    function selectShowtime(time) {
+        selectedTime = time;
+        document.getElementById('seat-selection-section').style.display = 'block';
+        document.getElementById('showtimes-section').style.display = 'none';
+        generateSeats();
+    }
+
+    function generateSeats() {
+        const seatGrid = document.getElementById('seat-grid');
+        seatGrid.innerHTML = ''; // Clear previous grid
+        for (let i = 0; i < 5; i++) {
+            const row = document.createElement('div');
+            row.classList.add('row');
+            for (let j = 0; j < 5; j++) {
+                const seat = document.createElement('div');
+                seat.classList.add('seat');
+                seat.dataset.seat = `${String.fromCharCode(65 + i)}${j + 1}`;
+                seat.addEventListener('click', () => selectSeat(seat));
+                row.appendChild(seat);
+            }
+            seatGrid.appendChild(row);
+        }
+    }
+
+    function selectSeat(seatElement) {
+        seatElement.classList.toggle('selected');
+        const seatLabel = seatElement.dataset.seat;
+        if (seatElement.classList.contains('selected')) {
+            selectedSeats.push(seatLabel);
+        } else {
+            selectedSeats = selectedSeats.filter(seat => seat !== seatLabel);
+        }
+    }
+
+    function confirmSeats() {
+        if (selectedSeats.length === 0) {
+            alert("Please select at least one seat.");
+            return;
+        }
+
+        document.getElementById('confirmation-message').innerText = `Hello, ${username}. Your booking for ${selectedMovie} at ${selectedTime} with seats: ${selectedSeats.join(', ')} has been confirmed.`;
+        document.getElementById('confirmation-section').style.display = 'block';
+        document.getElementById('seat-selection-section').style.display = 'none';
+    }
+
+    function goBackToMovies() {
+        document.getElementById('showtimes-section').style.display = 'none';
+        document.getElementById('seat-selection-section').style.display = 'none';
+        document.getElementById('confirmation-section').style.display = 'none';
+        document.querySelector('.movie-list').style.display = 'block';
+        selectedMovie = '';
+        selectedTime = '';
+        selectedSeats = [];
+    }
+
+    function showLoginModal() {
+        document.getElementById('login-modal').style.display = 'flex';
+    }
+
+    function closeLoginModal() {
+        document.getElementById('login-modal').style.display = 'none';
+    }
+
+    function handleLogin(event) {
+        event.preventDefault();
+        username = document.getElementById('username').value;
+        closeLoginModal();
+        alert(`Welcome, ${username}`);
+    }
+</script>
